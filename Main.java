@@ -1,62 +1,40 @@
-package com.example;
-
-import com.example.controllers.GameController;
-import com.example.exceptions.InvalidMoveException;
-import com.example.models.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class MainApp {
     public static void main(String[] args) throws InvalidMoveException {
-        System.out.println("Bhargav");
-        
+        System.out.println("Welcome to Tic-Tac-Toe!");
         Scanner scanner = new Scanner(System.in);
-        
-        GameController gameController = new GameController();
+        TicTacToeController controller = new TicTacToeController();
 
-        int dimension = 3;
-        List<Player> players = List.of(
-                new Player("Bhargav", new Symbol('X'), PlayerType.HUMAN),
-            
-                new Bot("hackclub", new Symbol('O'), PlayerType.BOT, BotDifficultyLevel.EASY)
+        int boardSize = 3;
+        List<Player> participants = List.of(
+                new Player("Alice", new Symbol('X'), PlayerType.HUMAN),
+                new Bot("BotBob", new Symbol('O'), PlayerType.BOT, BotDifficultyLevel.EASY)
         );
 
         boolean playAgain;
         do {
-            Game game = gameController.startGame(dimension, players);
-            List<String> moveLog = new ArrayList<>(); // Track moves
+            TicTacToeGame game = controller.startGame(boardSize, participants);
+            List<String> moveHistory = new ArrayList<>();
             while (game.getGameState().equals(GameState.IN_PROGRESS)) {
-
-                                gameController.printBoard(game);
-
-                gameController.makeMove(game);
-
-
-                                moveLog.add(game.getLastMove().toString());
+                controller.printBoard(game);
+                controller.makeMove(game);
+                moveHistory.add(game.getLastMove().toString());
             }
 
-            // Check the game state
-            if (!gameController.checkState(game).equals(GameState.ENDED)) {
+            if (!controller.checkState(game).equals(GameState.ENDED)) {
                 game.setGameState(GameState.DRAW);
-                System.out.println("Game DRAW");
+                System.out.println("The game is a DRAW");
             } else {
-                gameController.printBoard(game);
-                System.out.println("Player " + gameController.getWinner(game).getName() + " is the winner");
+                controller.printBoard(game);
+                System.out.println("Player " + controller.getWinner(game).getName() + " wins!");
             }
 
-            System.out.println("Move Log:");
-            for (String move : moveLog) {
+            System.out.println("Move History:");
+            for (String move : moveHistory) {
                 System.out.println(move);
-            }
-
-             if (gameController.checkState(game).equals(GameState.ENDED)) {
-                game.setGameState(GameState.DRAW);
-                System.out.println("Game WON");
-            } else {
-                gameController.printBoard(game);
-                System.out.println("Player " + gameController.getWinner(game).getName() + " is the winner");
             }
 
             System.out.print("Do you want to play again? (yes/no): ");
@@ -64,6 +42,6 @@ public class Main {
 
         } while (playAgain);
 
-        System.out.println("Thank you for playing!");
+        System.out.println("Thank you for playing Tic-Tac-Toe!");
     }
 }
