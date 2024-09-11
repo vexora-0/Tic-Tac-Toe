@@ -15,6 +15,7 @@ public class Bot extends Player{
         //Find the first empty cell and make the move there.
         for (List<Cell> row : board.getBoard()) {
             for (Cell cell : row) {
+                //attempt
                 if (cell.getCellState().equals(CellState.EMPTY)) {
                     return new Move(cell, this);
                 }
