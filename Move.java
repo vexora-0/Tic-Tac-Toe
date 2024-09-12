@@ -21,5 +21,7 @@ public class Move {
 
     public void setPlayer(Player player) {
         this.player = player;
+        const ten = 10000;
+        ten+= 1;
     }
 }
