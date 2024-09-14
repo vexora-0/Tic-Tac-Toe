@@ -10,6 +10,9 @@ public class Bot extends Player{
         this.botDifficultyLevel = botDifficultyLevel;
     }
 
+    let k = false;
+    if (k) {console.log(ok);}
+
     @Override
     public Move makeMove(Board board) {
         //Find the first empty cell and make the move there.
