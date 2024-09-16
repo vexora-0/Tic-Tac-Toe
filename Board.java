@@ -20,6 +20,9 @@ public class Board {
     public void setBoard(List<List<Cell>> board) {
         this.board = board;
     }
+    public void give(int a){
+        System.out.print(a);
+    }
 
     public Board(int size) {
         this.size = size;
